@@ -1,33 +1,34 @@
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
 " Let Vundle manage Vundle
-Bundle 'gmarik/vundle'
+Plugin 'gmarik/vundle'
 
 " Bundles
-Bundle 'tpope/vim-sensible'
-Bundle 'tpope/vim-surround'
-Bundle 'tpope/vim-fugitive'
-Bundle 'tpope/vim-rails'
-Bundle 'tpope/vim-rake'
-Bundle 'nanotech/jellybeans.vim'
-Bundle 'Lokaltog/vim-powerline'
-Bundle 'scrooloose/syntastic'
-Bundle 'scrooloose/nerdtree'
-Bundle 'kien/ctrlp.vim'
-Bundle 'rking/ag.vim'
-Bundle 'kana/vim-textobj-user'
-Bundle 'nelstrom/vim-textobj-rubyblock'
-Bundle 'slim-template/vim-slim'
-Bundle 'L9'
-Bundle 'git://git.wincent.com/command-t.git'
-Bundle 'FuzzyFinder'
+Plugin 'tpope/vim-sensible'
+Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-rails'
+Plugin 'tpope/vim-rake'
+Plugin 'Lokaltog/vim-powerline'
+Plugin 'scrooloose/syntastic'
+Plugin 'scrooloose/nerdtree'
+Plugin 'kien/ctrlp.vim'
+Plugin 'rking/ag.vim'
+Plugin 'kana/vim-textobj-user'
+Plugin 'nelstrom/vim-textobj-rubyblock'
+Plugin 'slim-template/vim-slim'
+Plugin 'L9'
+Plugin 'git://git.wincent.com/command-t.git'
+Plugin 'FuzzyFinder'
+Plugin 'altercation/vim-colors-solarized'
 
 " Document Formatting
+call vundle#end()
 filetype plugin indent on     " required
 
 set cursorline
@@ -39,8 +40,6 @@ set nowrap
 set number
 set ignorecase
 set smartcase
-
-color jellybeans
 
 " Syntastic
 let g:syntastic_python_checkers=['pylint']
@@ -62,4 +61,10 @@ imap jj <Esc>
 
 " NerdTree shortcut
 map <C-n> :NERDTreeToggle<CR>
+
+" For solarized plugin (color scheme)
+" https://github.com/altercation/vim-colors-solarized
+syntax enable
+set background=dark
+colorscheme solarized
 
