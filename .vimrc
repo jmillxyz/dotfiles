@@ -167,7 +167,7 @@ set nofoldenable
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-Plugin 'gmarik/vundle'                      " Let Vundle manage Vundle
+Plugin 'gmarik/Vundle.vim'                      " Let Vundle manage Vundle
 Plugin 'kien/ctrlp.vim'                     " Fuzzy file finder
 Plugin 'Valloric/YouCompleteMe'             " Code completion
 Plugin 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim'} " Status bar
