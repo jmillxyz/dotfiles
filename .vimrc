@@ -33,8 +33,13 @@ set bs=2     " make backspace behave like normal again
 let mapleader = ","
 
 
+" easier moving between tabs
+map <Leader>n <esc>:tabprevious<CR>
+map <Leader>m <esc>:tabnext<CR>
+
+
 " Bind nohl
-" Removes highlight of your last search
+" Removes hghlight of your last mearch
 " ``<C>`` stands for ``CTRL`` and therefore ``<C-n>`` stands for ``CTRL+n``
 noremap <C-n> :nohl<CR>
 vnoremap <C-n> :nohl<CR>
@@ -47,11 +52,6 @@ map <c-j> <c-w>j
 map <c-k> <c-w>k
 map <c-l> <c-w>l
 map <c-h> <c-w>h
-
-
-" easier moving between tabs
-map <Leader>n <esc>:tabprevious<CR>
-map <Leader>m <esc>:tabnext<CR>
 
 
 " easier moving of code blocks
@@ -70,15 +70,18 @@ au InsertLeave * match ExtraWhitespace /\s\+$/
 " Color scheme
 " mkdir -p ~/.vim/colors && cd ~/.vim/colors
 " wget -O wombat256mod.vim http://www.vim.org/scripts/download_script.php?src_id=13400
-set t_Co=256
-color wombat256mod
+syntax on
+let t_Co=256
+set background=dark
+let g:wombat256mod_termtrans=1
+"let g:wombat256mod_termcolors=256
+colorscheme wombat256mod
 
 
 " Enable syntax highlighting
 " You need to reload this file for the change to apply
 filetype off
 filetype plugin indent on
-syntax on
 
 
 " Showing line numbers and length
@@ -179,7 +182,6 @@ set guifont=Source\ Code\ Pro\ for\ Powerline:h13
 let g:Powerline_symbols = 'fancy'
 set encoding=utf-8
 set fillchars+=stl:\ ,stlnc:\
-set term=xterm-256color
 set termencoding=utf-8
 set laststatus=2
 
@@ -187,6 +189,10 @@ set laststatus=2
 " Show cursor line and column
 set cursorline
 set cursorcolumn
+
+
+" Save and Test Django project
+:map ,t :w\|!python manage.py test<cr>
 
 
 " Quick ESC
