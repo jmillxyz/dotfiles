@@ -28,8 +28,15 @@ for file in $files; do
   echo "Moving any existing dotfiles from ~/ to $olddir"
   mv ~/.$file ~/dotfiles_old/
   echo "Creating symlink to $file in home directory."
-  ln -s $dir/$file ~/.$file
+  cp -r $dir/.$file ~/.$file
 done
+
+# Install Vundle first
+git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
 # Install any Plugins included with Vundle
 vim +PluginInstall +qall
+
+# Compile YouCompleteMe
+cd ~/.vim/bundle/YouCompleteMe
+./install.sh
