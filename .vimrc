@@ -3,8 +3,8 @@
 " 1 Nov 2014
 "
 " Description/Installation:
-" This is written for Mac. To start, you need the "Source Code Pro for
-" Powerline" font installed (powerline-font on GitHub). 
+" To start, you need the 'Source Code Pro for Powerline' font
+" installed (powerline-font on GitHub).
 
 
 " automatic reloading of .vimrc
@@ -15,6 +15,49 @@ autocmd! BufWritePost vimrc nested :source ~/.vimrc
 set nocompatible
 
 
+"============================================================================
+" Visual Improvements
+"============================================================================
+" Show whitespace
+" MUST be inserted BEFORE the colorscheme command
+autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
+au InsertLeave * match ExtraWhitespace /\s\+$/
+
+
+" Color scheme
+" mkdir -p ~/.vim/colors && cd ~/.vim/colors
+" wget -O wombat256mod.vim http://www.vim.org/scripts/download_script.php?src_id=13400
+syntax on
+let t_Co=256
+set background=dark
+let g:wombat256mod_termtrans=1
+"let g:wombat256mod_termcolors=256
+colorscheme wombat256mod
+
+
+" Showing line numbers and length
+set number  " show line numbers
+set tw=79   " width of document (used by gd)
+set nowrap  " don't automatically wrap on load
+set fo-=t   " don't automatically wrap text when typing
+set colorcolumn=80
+highlight ColorColumn ctermbg=233
+
+
+" Enable syntax highlighting
+" You need to reload this file for the change to apply
+filetype off
+filetype plugin indent on
+
+
+" Show cursor line and column
+set cursorline
+set cursorcolumn
+
+
+"============================================================================
+" Functional Improvements
+"============================================================================
 " better copy & paste
 " when you want to paste large blocks of code into vim, press f2 before you
 " paste. at the bottom you should see ``-- insert (paste) --``.
@@ -61,49 +104,17 @@ vnoremap < <gv  " better indentation
 vnoremap > >gv  " better indentation
 
 
-" Show whitespace
-" MUST be inserted BEFORE the colorscheme command
-autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
-au InsertLeave * match ExtraWhitespace /\s\+$/
-
-
-" Color scheme
-" mkdir -p ~/.vim/colors && cd ~/.vim/colors
-" wget -O wombat256mod.vim http://www.vim.org/scripts/download_script.php?src_id=13400
-syntax on
-let t_Co=256
-set background=dark
-let g:wombat256mod_termtrans=1
-"let g:wombat256mod_termcolors=256
-colorscheme wombat256mod
-
-
-" Enable syntax highlighting
-" You need to reload this file for the change to apply
-filetype off
-filetype plugin indent on
-
-
-" Showing line numbers and length
-set number  " show line numbers
-set tw=79   " width of document (used by gd)
-set nowrap  " don't automatically wrap on load
-set fo-=t   " don't automatically wrap text when typing
-set colorcolumn=80
-highlight ColorColumn ctermbg=233
-
-
-" Useful settings
-set history=700
-set undolevels=700
-
-
 " Real programmers don't use TABs but spaces
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
 set shiftround
 set expandtab
+
+
+" History settings
+set history=700
+set undolevels=700
 
 
 " Make search case insensitive
@@ -120,9 +131,29 @@ set nowritebackup
 set noswapfile
 
 
+" TDD hotness
+" Save and Test Django project
+map ,t :w\|!../venv/bin/python3 manage.py test<cr>
+" Save and run functional test
+map ,f :w\|!../venv/bin/python3 functional_tests.py<cr>
+
+
+" Quick ESC
+imap jj <Esc>
+
 "============================================================================
-" Python IDE Setup
+" Plugin setup
 "============================================================================
+" VUNDLE
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+Plugin 'gmarik/vundle'                      " Let Vundle manage Vundle
+Plugin 'kien/ctrlp.vim'                     " Fuzzy file finder
+Plugin 'Valloric/YouCompleteMe'             " Code completion
+Plugin 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim'} " Status bar
+call vundle#end()
+
 
 " Settings for ctrlp
 " cd ~/.vim/bundle
@@ -131,15 +162,6 @@ let g:ctrlp_max_height = 10
 set wildignore+=*.pyc
 set wildignore+=*_build/*
 set wildignore+=*/coverage/*
-
-
-" Settings for jedi-vim
-" cd ~/.vim/bundle
-" git clone git://github.com/davidhalter/jedi-vim.git
-let g:jedi#usages_command = "<leader>z"
-let g:jedi#popup_on_dot = 0
-let g:jedi#popup_select_first = 0
-map <Leader>b Oimport ipdb; ipdb.set_trace() # BREAKPOINT<C-c>
 
 
 " Better navigating through omnicomplete option list
@@ -166,17 +188,6 @@ inoremap <silent><C-k> <C-R>=OmniPopup('k')<CR>
 set nofoldenable
 
 
-" VUNDLE
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-Plugin 'gmarik/Vundle.vim'                      " Let Vundle manage Vundle
-Plugin 'kien/ctrlp.vim'                     " Fuzzy file finder
-Plugin 'Valloric/YouCompleteMe'             " Code completion
-Plugin 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim'} " Status bar
-call vundle#end()
-
-
 " Powerline
 set guifont=Source\ Code\ Pro\ for\ Powerline:h13
 let g:Powerline_symbols = 'fancy'
@@ -186,14 +197,3 @@ set termencoding=utf-8
 set laststatus=2
 
 
-" Show cursor line and column
-set cursorline
-set cursorcolumn
-
-
-" Save and Test Django project
-:map ,t :w\|!python manage.py test<cr>
-
-
-" Quick ESC
-imap jj <Esc>
