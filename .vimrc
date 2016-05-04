@@ -1,15 +1,14 @@
 " ViM customizations
 " Jon Miller
-" 1 Nov 2014
-"
-" Description/Installation:
-" To start, you need the 'Source Code Pro for Powerline' font
-" installed (powerline-font on GitHub).
+" 4 May 2016
 
+
+"============================================================================
+" Misc
+"============================================================================
 
 " automatic reloading of .vimrc
 autocmd! BufWritePost vimrc nested :source ~/.vimrc
-
 
 " Necessary for all the cool stuff
 set nocompatible
@@ -142,16 +141,31 @@ map ,f :w\|!../venv/bin/python3 functional_tests.py<cr>
 imap jj <Esc>
 
 "============================================================================
+" Language-specific settings
+"============================================================================
+"Python
+au BufNewFile,BufRead *.py set ts=4 sts=4 sw=4 tw=79 expandtab autoindent fileformat=unix
+let python_highlight_all=1
+
+"JavaScript, HTML, CSS, babelrc
+au BufNewFile,BufRead *.js,*.html,*.css,*.babelrc set ts=2 sts=2 sw=2
+
+"============================================================================
 " Plugin setup
 "============================================================================
 " VUNDLE
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-Plugin 'gmarik/vundle'                      " Let Vundle manage Vundle
-Plugin 'kien/ctrlp.vim'                     " Fuzzy file finder
-Plugin 'Valloric/YouCompleteMe'             " Code completion
-Plugin 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim'} " Status bar
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'bling/vim-airline'
+Plugin 'kien/ctrlp.vim'
+Plugin 'flazz/vim-colorschemes'
+Plugin 'tmhedberg/SimpylFold'
+Plugin 'vim-scripts/indentpython.vim'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'scrooloose/syntastic'
+Plugin 'nvie/vim-flake8'
 call vundle#end()
 
 
@@ -181,19 +195,22 @@ endfunction
 inoremap <silent><C-j> <C-R>=OmniPopup('j')<CR>
 inoremap <silent><C-k> <C-R>=OmniPopup('k')<CR>
 
+"Show docstrings for folded code
+let g:SimpylFold_docstring_preview=1
 
-" Python code folding
-" mkdir -p ~/.vim/ftplugin
-" wget -O ~/.vim/ftplugin/python_editing.vim http://www.vim.org/scripts/download_script.php?src_id=5492
-set nofoldenable
+"Enable code folding
+set foldmethod=indent
+set foldlevel=99
 
 
-" Powerline
-set guifont=Source\ Code\ Pro\ for\ Powerline:h13
+" Airline Settings
 let g:Powerline_symbols = 'fancy'
 set encoding=utf-8
 set fillchars+=stl:\ ,stlnc:\
 set termencoding=utf-8
 set laststatus=2
 
-
+" Autocomplete
+let g:ycm_server_python_interpreter='/usr/bin/python'
+let g:ycm_autoclose_preview_window_after_completion=1
+map <leader>g :YcmCompleter GoToDefinitionElseDeclaration<CR>

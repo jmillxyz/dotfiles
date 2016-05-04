@@ -16,6 +16,10 @@ echo -n "Creating $olddir for backup of any existing dotfiles in ~/ ..."
 mkdir -p $olddir
 echo "done"
 
+# install wombat colorscheme
+mkdir -p ~/.vim/colors && cd ~/.vim/colors
+wget -O wombat256mod.vim http://www.vim.org/scripts/download_script.php?src_id=13400
+
 # change to the dotfiles directory
 echo -n "Changing to the $dir directory ..."
 cd $dir
