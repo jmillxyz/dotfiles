@@ -42,11 +42,6 @@ git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 vim +PluginInstall +qall
 
 # Compile YouCompleteMe
-echo "Do you wish to compile (possibly re-compile) YouCompleteMe?"
-select answer in "Yes" "No"
-do
-    case $answer in
-        Yes ) cd ~/.vim/bundle/YouCompleteMe; ./install.sh; echo "Complete!";;
-        No ) echo "Complete!"; exit;;
-	esac
-done
+cd ~/.vim/bundle/YouCompleteMe
+./install.sh
+echo "Complete!"
