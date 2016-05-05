@@ -2,4 +2,7 @@ os:
   - linux
   - osx
 
+before_install:
+  - pwd
+
 script: ./install.sh
