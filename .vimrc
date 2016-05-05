@@ -148,7 +148,7 @@ au BufNewFile,BufRead *.py set ts=4 sts=4 sw=4 tw=79 expandtab autoindent filefo
 let python_highlight_all=1
 
 "JavaScript, HTML, CSS, babelrc
-au BufNewFile,BufRead *.js,*.html,*.css,*.babelrc set ts=2 sts=2 sw=2
+au BufNewFile,BufRead *.js,*.html,*.css,*.babelrc,*.yml set ts=2 sts=2 sw=2
 
 "============================================================================
 " Plugin setup
