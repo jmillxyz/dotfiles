@@ -6,7 +6,7 @@
 ############################
 
 ########## Variables
-dir=~/jondelmil/dotfiles                    # dotfiles directory
+dir=~/build/jondelmil/dotfiles                    # dotfiles directory
 olddir=~/dotfiles_old                       # old dotfiles backup directory
 files=".bashrc .vimrc .vim .tmux.conf"      # list of files/folders to symlink in homedir
 ##########
@@ -43,7 +43,7 @@ for file in $files; do
 done
 
 # Install Vundle first
-git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
 # Install any Plugins included with Vundle
 vim +PluginInstall +qall
