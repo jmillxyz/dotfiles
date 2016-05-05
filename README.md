@@ -1,5 +1,7 @@
 dotfiles
 ========
+[![Build Status](https://travis-ci.org/jondelmil/dotfiles.svg?branch=master)](https://travis-ci.org/jondelmil/dotfiles)
+
 My dotfiles for new Mac/Linux VMs.
 
 - vim
