@@ -3,6 +3,6 @@ os:
   - osx
 
 before_install:
-  - cd ~
+  - pwd
 
 script: ./install.sh
