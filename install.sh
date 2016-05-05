@@ -35,6 +35,8 @@ for file in $files; do
       mv ~/$file ~/dotfiles_old/
       echo "Creating symlink to $file in home directory."
       cp -r $dir/$file ~/$file
+    else
+      echo "File $file not found."
   fi
 done
 
