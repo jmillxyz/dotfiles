@@ -34,11 +34,23 @@ for file in $files; do
     then
       echo "Moving current $file into $olddir"
       mv ~/$file $olddir/$file
-      echo "Copying new $file from $dir into home directory."
-      cp -r $dir/$file ~/$file
+      echo "Copying new $file into home directory."
+      if [ -d $dir]
+        then
+          cp -r $dir/$file ~/$file
+        else
+          cd ~/Development/dotfiles/
+          cp -r $file ~/$file
+      fi
     else
-      echo "Copying new $file from $dir into home directory."
-      cp -r $dir/$file ~/$file
+      echo "No previous $file. Copying new $file from $dir into home directory."
+      if [ -d $dir]
+        then
+          cp -r $dir/$file ~/$file
+        else
+          cd ~/Development/dotfiles/
+          cp -r $file ~/$file
+      fi
   fi
 done
 
