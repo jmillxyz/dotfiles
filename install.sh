@@ -5,11 +5,16 @@
 # dotfiles in ~/dotfiles
 ############################
 
-########## Variables
-dir=~/build/jondelmil/dotfiles                    # dotfiles directory
-olddir=~/dotfiles_old                       # old dotfiles backup directory
-files=".bashrc .vimrc .vim .tmux.conf"      # list of files/folders to symlink in homedir
-##########
+########## Variables ##########
+# dotfiles directory
+dir=~/build/jondelmil/dotfiles
+
+# old dotfiles backup directory
+olddir=~/dotfiles_old
+
+# list of files/folders to symlink in homedir
+files=".bashrc .vimrc .vim .tmux.conf .zshrc"
+###############################
 
 # create dotfiles_old in homedir
 echo -n "Creating $olddir for backup of any existing dotfiles in ~/ ..."
