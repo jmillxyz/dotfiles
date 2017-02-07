@@ -1,16 +1,16 @@
 #!/bin/bash
 ############################
-# .make.sh
+# install.sh
 # This script creates symlinks from the home directory to any desired
 # dotfiles in ~/dotfiles
 ############################
 
 ########## Variables ##########
 # dotfiles directory
-dir=~/build/jondelmil/dotfiles
+dir=$(pwd)
 
 # old dotfiles backup directory
-olddir=~/dotfiles_old
+olddir=~/.dotfiles_old
 
 # list of files/folders to symlink in homedir
 files=".bashrc .vimrc .vim .tmux.conf .zshrc"
@@ -67,5 +67,5 @@ vim +PluginInstall +qall
 
 # Compile YouCompleteMe
 cd ~/.vim/bundle/YouCompleteMe
-./install.sh
+python install.py
 echo "Complete!"
