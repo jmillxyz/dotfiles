@@ -29,8 +29,8 @@ au InsertLeave * match ExtraWhitespace /\s\+$/
 syntax on
 let t_Co=256
 set background=dark
-let g:wombat256mod_termtrans=1
-"let g:wombat256mod_termcolors=256
+"let g:wombat256mod_termtrans=1
+let g:wombat256mod_termcolors=256
 colorscheme wombat256mod
 
 
@@ -61,7 +61,9 @@ set cursorcolumn
 " when you want to paste large blocks of code into vim, press f2 before you
 " paste. at the bottom you should see ``-- insert (paste) --``.
 set pastetoggle=<f2>
-set clipboard=unnamed
+if $TMUX == ''
+    set clipboard+=unnamed
+endif
 
 
 " mouse and backspace
@@ -210,6 +212,6 @@ set termencoding=utf-8
 set laststatus=2
 
 " Autocomplete
-let g:ycm_server_python_interpreter='/usr/bin/python'
+let g:ycm_server_python_interpreter='python'
 let g:ycm_autoclose_preview_window_after_completion=1
 map <leader>g :YcmCompleter GoToDefinitionElseDeclaration<CR>
