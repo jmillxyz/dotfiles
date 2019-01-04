@@ -1,0 +1,7 @@
+# Ignore these files/directories across my filesystem so that they don't
+# pollute the team's git repository
+.vscode/    # visual studio code
+tags        # ctags
+
+# Ignore secrets file
+.secret

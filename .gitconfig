@@ -1,0 +1,7 @@
+# This is Git's per-user configuration file.
+[user]
+	name = Jon Miller
+	email = jmill@jmill.xyz
+[core]
+	excludesfile = /Users/jmill/.global_gitignore
+	editor = vim

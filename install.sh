@@ -13,7 +13,8 @@ dir=$(pwd)
 olddir=~/.dotfiles_old
 
 # list of files/folders to symlink in homedir
-files=".bashrc .vimrc .vim .tmux.conf .zshrc"
+# TODO: detect files automatically
+files=".gitconfig .global_gitignore .vimrc .vim .tmux.conf .zshrc"
 ###############################
 
 # create dotfiles_old in homedir
@@ -59,13 +60,52 @@ for file in $files; do
   fi
 done
 
-# Install Vundle first
-git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+# install homebrew
+/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
-# Install any Plugins included with Vundle
-vim +PluginInstall +qall
+# install zsh
+echo "installing zsh..."
+brew install zsh zsh-completions
 
-# Compile YouCompleteMe
-cd ~/.vim/bundle/YouCompleteMe
-python install.py
+# Oh My Zsh framework
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+
+# install neovim
+echo "installing neovim..."
+brew install neovim
+source ~/.zshrc
+# echo 'export alias vim=nvim' >> ~/.zshrc
+
+# Install plugins in .vimrc with vim-plug
+vim +PlugInstall +qall
+
+# pythons
+echo "setting up pythons with pyenv..."
+git clone https://github.com/yyuu/pyenv.git ~/.pyenv
+# echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.zshrc
+# echo 'export PATH=$PYENV_ROOT/bin:%PATH"' >> ~/.zshrc
+# echo 'eval "$(pyenv init -)"' >> ~/.zshrc
+# source ~/.zshrc
+
+pyenv install 3.6.8
+pyenv install 3.7.2
+pyenv global 3.7.2 3.6.8
+
+git clone https://github.com/yyuu/pyenv-virtualenvwrapper.git ~/.pyenv/plugins/pyenv-virtualenvwrapper
+# echo 'pyenv virtualenvwrapper' >> ~/.zshrc
+# source ~/.zshrc
+
+# python stuff
+echo "installing python tools with pipsi..."
+pip install pipsi
+pipsi install asciinema
+pipsi install httpie
+pipsi install magic-wormhole
+pipsi install pre-commit
+pipsi install tox
+
+# other utilities
+echo "installing other utilties via brew..."
+brew install wget git youtube-dl tmux mitmproxy watch postgresql
+
 echo "Complete!"

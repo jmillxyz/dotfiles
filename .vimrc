@@ -1,37 +1,17 @@
-" ViM customizations
-" Jon Miller
-" 4 May 2016
-
-
-"============================================================================
+" ============================================================================
 " Misc
-"============================================================================
-
-" automatic reloading of .vimrc
-autocmd! BufWritePost vimrc nested :source ~/.vimrc
+" ============================================================================
 
 " Necessary for all the cool stuff
 set nocompatible
 
 
-"============================================================================
+" ============================================================================
 " Visual Improvements
-"============================================================================
-" Show whitespace
-" MUST be inserted BEFORE the colorscheme command
-autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
-au InsertLeave * match ExtraWhitespace /\s\+$/
-
-
-" Color scheme
-" mkdir -p ~/.vim/colors && cd ~/.vim/colors
-" wget -O wombat256mod.vim http://www.vim.org/scripts/download_script.php?src_id=13400
+" ============================================================================
 syntax on
 let t_Co=256
-set background=dark
-"let g:wombat256mod_termtrans=1
-let g:wombat256mod_termcolors=256
-colorscheme wombat256mod
+set background=light
 
 
 " Showing line numbers and length
@@ -39,8 +19,7 @@ set number  " show line numbers
 set tw=79   " width of document (used by gd)
 set nowrap  " don't automatically wrap on load
 set fo-=t   " don't automatically wrap text when typing
-set colorcolumn=80
-highlight ColorColumn ctermbg=233
+" set colorcolumn=88
 
 
 " Enable syntax highlighting
@@ -49,14 +28,13 @@ filetype off
 filetype plugin indent on
 
 
-" Show cursor line and column
+" Show cursor line
 set cursorline
-set cursorcolumn
 
 
-"============================================================================
+" ============================================================================
 " Functional Improvements
-"============================================================================
+" ============================================================================
 " better copy & paste
 " when you want to paste large blocks of code into vim, press f2 before you
 " paste. at the bottom you should see ``-- insert (paste) --``.
@@ -71,16 +49,6 @@ set mouse=a  " on OSX press ALT and click
 set bs=2     " make backspace behave like normal again
 
 
-" Rebind <Leader> key
-" I like to have it here becuase it is easier to reach than the default and
-" it is next to ``m`` and ``n`` which I use for navigating between tabs.
-let mapleader = ","
-
-
-" easier moving between tabs
-map <Leader>n <esc>:tabprevious<CR>
-map <Leader>m <esc>:tabnext<CR>
-
 
 " Bind nohl
 " Removes hghlight of your last mearch
@@ -90,22 +58,14 @@ vnoremap <C-n> :nohl<CR>
 inoremap <C-n> :nohl<CR>
 
 
-" bind Ctrl+<movement> keys to move around the windows, instead of using Ctrl+w + <movement>
-" Every unnecessary keystroke that can be saved is good for your health :)
-map <c-j> <c-w>j
-map <c-k> <c-w>k
-map <c-l> <c-w>l
-map <c-h> <c-w>h
-
-
-" easier moving of code blocks
+" move code blocks more easily
 " Try to go into visual mode (v), thenselect several lines of code here and
-" then press ``>`` several times.
+" then press ``>`` several times
 vnoremap < <gv  " better indentation
 vnoremap > >gv  " better indentation
 
 
-" Real programmers don't use TABs but spaces
+" Use spaces, not tabs
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
@@ -132,77 +92,63 @@ set nowritebackup
 set noswapfile
 
 
-" TDD hotness
-" Save and Test Django project
-map ,t :w\|!../venv/bin/python3 manage.py test<cr>
-" Save and run functional test
-map ,f :w\|!../venv/bin/python3 functional_tests.py<cr>
-
-
 " Quick ESC
 imap jj <Esc>
 
-"============================================================================
+" Search results appear in the middle of the screen!
+:nnoremap n nzz
+:nnoremap N Nzz
+:nnoremap * *zz
+:nnoremap # #zz
+:nnoremap g* g*zz
+:nnoremap g# g#zz
+
+
+" ============================================================================
 " Language-specific settings
-"============================================================================
-"Python
-au BufNewFile,BufRead *.py set ts=4 sts=4 sw=4 tw=79 expandtab autoindent fileformat=unix
+" ============================================================================
+" Python
+au BufNewFile,BufRead *.py,*.elm set ts=4 sts=4 sw=4 tw=88 expandtab autoindent fileformat=unix
 let python_highlight_all=1
 
-"JavaScript, HTML, CSS, babelrc
-au BufNewFile,BufRead *.js,*.html,*.css,*.babelrc,*.yml set ts=2 sts=2 sw=2
+" JavaScript, HTML, CSS, babelrc
+au BufNewFile,BufRead *.js,*.html,*.css,*.babelrc,*.yml,*.tf set ts=2 sts=2 sw=2
 
-"============================================================================
+
+" ============================================================================
 " Plugin setup
-"============================================================================
-" VUNDLE
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'bling/vim-airline'
-Plugin 'kien/ctrlp.vim'
-Plugin 'flazz/vim-colorschemes'
-Plugin 'tmhedberg/SimpylFold'
-Plugin 'vim-scripts/indentpython.vim'
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'scrooloose/syntastic'
-call vundle#end()
-
+" ============================================================================
+" vim-plug
+" Specify a directory for plugins
+call plug#begin('~/.local/share/nvim/plugged')
+Plug 'bling/vim-airline'    " jazzy status bar
+Plug 'kien/ctrlp.vim'       " fuzzy file search
+Plug 'w0rp/ale'             " language server protocol client for neovim
+Plug 'tpope/vim-surround'   " replace surrounding characters
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-sensible'
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'zchee/deoplete-jedi'
+Plug 'craigemery/vim-autotag'
+Plug 'zivyangll/git-blame.vim'  " run git blame on a line of code with leader-s
+Plug 'elmcast/elm-vim'
+Plug 'alvan/vim-closetag'
+Plug 'ambv/black'
+Plug 'mattn/emmet-vim'
+Plug 'jremmen/vim-ripgrep'  " grep through source fast
+Plug 'rust-lang/rust.vim'   " rust file detection, syntax highlighting, formatting
+Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
+call plug#end()
 
 " Settings for ctrlp
-" cd ~/.vim/bundle
-" git clone https://github.com/kien/ctrlp.vim.git
 let g:ctrlp_max_height = 10
+let g:ctrlp_show_hidden = 1
 set wildignore+=*.pyc
+set wildignore+=*.pyo
+set wildignore+=*.tox/*
+set wildignore+=*.mypy_cache/*
 set wildignore+=*_build/*
 set wildignore+=*/coverage/*
-
-
-" Better navigating through omnicomplete option list
-" See http://stackoverflow.com/questions/2170023/how-to-map-keys-for-popup-menu-in-vim
-set completeopt=longest,menuone
-function! OmniPopup(action)
-    if pumvisible()
-        if a:action == 'j'
-            return "\<C-N>"
-        elseif a:action == 'k'
-            return "\<C-P>"
-        endif
-    endif
-    return a:action
-endfunction
-
-inoremap <silent><C-j> <C-R>=OmniPopup('j')<CR>
-inoremap <silent><C-k> <C-R>=OmniPopup('k')<CR>
-
-"Show docstrings for folded code
-let g:SimpylFold_docstring_preview=1
-
-"Enable code folding
-set foldmethod=indent
-set foldlevel=99
-
 
 " Airline Settings
 let g:Powerline_symbols = 'fancy'
@@ -211,7 +157,82 @@ set fillchars+=stl:\ ,stlnc:\
 set termencoding=utf-8
 set laststatus=2
 
-" Autocomplete
-let g:ycm_server_python_interpreter='python'
-let g:ycm_autoclose_preview_window_after_completion=1
-map <leader>g :YcmCompleter GoToDefinitionElseDeclaration<CR>
+" ALE linting
+" choose which linters to enable
+let g:ale_linters = {
+\   'python': ['flake8', 'mypy'],
+\   'terraform': ['tflint'],
+\}
+" only run linters named above (prevent e.g. shellcheck running on sh.j2 files)
+let g:ale_linters_explicit = 1
+"
+" Put ALE status in airline
+let g:airline#extensions#ale#enabled = 1
+
+" Let elm-vim format on save
+let g:elm_format_autosave = 1
+
+" Use deoplete
+let g:deoplete#enable_at_startup = 1
+
+" Fix files
+let g:ale_fixers = {
+\   '*': ['remove_trailing_lines', 'trim_whitespace'],
+\   'python': ['black'],
+\}
+
+" Set this variable to 1 to fix files when you save them.
+let g:ale_fix_on_save = 1
+
+" Required for operations modifying multiple buffers like rename
+set hidden
+
+let g:LanguageClient_serverCommands = {
+\   'rust': ['rustup', 'run', 'nightly', 'rls'],
+\}
+let g:LanguageClient_autoStart = 1
+
+
+" Maps K to hover, gd to goto definition, F2 to rename
+nnoremap <silent> K :call LanguageClient_textDocument_hover()
+nnoremap <silent> gd :call LanguageClient_textDocument_definition()
+nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()
+
+
+" Automatically reload a changed file (e.g. when switching git branches)
+set autoread
+
+
+" Move new splits to sensible locations
+set splitbelow
+set splitright
+
+
+" Virtualenvs for python completion with neovim
+let g:python_host_prog = '/Users/jmill/.virtualenvs/neovim-py2/bin/python'
+let g:python3_host_prog = '/Users/jmill/.virtualenvs/neovim-py3/bin/python'
+
+
+" vim-autotags file
+let g:autotagTagsFile="tags"
+
+
+" Enable Emmet, only for HTML/CSS files though
+let g:user_emmet_install_global = 0
+autocmd FileType html,css EmmetInstall
+let g:user_emmet_mode='a'               " enable all functions in all modes
+
+
+" Remap <leader> key
+" convenient because it's easier to reach than the default (\) and is close to
+" `n` and `m` which I use to navigate vim tabs
+let mapleader = ","
+
+
+" easier movement between tabs
+map <Leader>n <esc>:tabprevious<CR>
+map <Leader>m <esc>:tabnext<CR>
+
+
+" generic test script hotkey
+:nnoremap <Leader>t :!./test.sh<cr>
