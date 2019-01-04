@@ -13,7 +13,7 @@ dir=$(pwd)
 olddir=~/.dotfiles_old
 
 # list of files/folders to symlink in homedir
-# TODO: detect files automatically
+# TODO: detect these files automatically
 files=".gitconfig .global_gitignore .vimrc .vim .tmux.conf .zshrc"
 ###############################
 
@@ -23,8 +23,8 @@ mkdir -p $olddir
 echo "done"
 
 # install wombat colorscheme
-mkdir -p ~/.vim/colors && cd ~/.vim/colors
-wget -O wombat256mod.vim http://www.vim.org/scripts/download_script.php?src_id=13400
+# mkdir -p ~/.vim/colors && cd ~/.vim/colors
+# wget -O wombat256mod.vim http://www.vim.org/scripts/download_script.php?src_id=13400
 
 # change to the dotfiles directory
 mkdir -p $dir
@@ -45,7 +45,7 @@ for file in $files; do
         then
           cp -r $dir/$file ~/$file
         else
-          cd ~/Development/dotfiles/
+          cd ~/dotfiles/
           cp -r $file ~/$file
       fi
     else
@@ -54,7 +54,7 @@ for file in $files; do
         then
           cp -r $dir/$file ~/$file
         else
-          cd ~/Development/dotfiles/
+          cd ~/dotfiles/
           cp -r $file ~/$file
       fi
   fi
@@ -106,6 +106,6 @@ pipsi install tox
 
 # other utilities
 echo "installing other utilties via brew..."
-brew install wget git youtube-dl tmux mitmproxy watch postgresql
+brew install wget git youtube-dl tmux mitmproxy watch postgresql wemux
 
 echo "Complete!"
